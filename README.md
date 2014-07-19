@@ -169,10 +169,26 @@ Remember to have fun :)
 
 准备工作
 ============
-* openSuse 系统 (kiwi目前支持 opensuse readhat centos)(已经在opensuse的虚拟机自己从源码安装kiwi)
+* openSuse 系统 (kiwi目前支持 opensuse redhat centos)(已经在opensuse的虚拟机自己从源码安装kiwi)
 * perl书籍若干(kiwi主要是perl语言编写的)
 * 学会了perl调试(代码量很大也很复杂，调试是必须的)
 * make书籍若干(kiwi是通过make管理项目构建的 kiwi的makefile写的特别好 很规范 代码注释很好，学习的很好的范例)
 * 时间与耐心
 * 笔记总结 http://localhost:8080/wiki/index.php?title=Kiwi
 * 源码注释（好记性不如烂笔头，以后是要反复看的，要不就白看了） https://github.com/gnuhub/kiwi/tree/gnuhub_kiwi
+
+项目持续构建准备
+==================
+* 将openSuse 虚拟机节点opensuse-root增加到jenkins node
+* 创建一个自动从源码检出构建的job kiwi.install 构建节点 分支 
+* 阅读源码，增加日志输入与调试信息，构建出一个可以有日志输出，解释器工作原理的版本
+* 在jenkins构建 kiwi.search 任务用于自动检查我的代码注释分支代码更新，将代码检出放入opengrok下创建索引，便于源码搜索
+
+常用链接
+===================
+* [笔记](http://localhost:8080/wiki/index.php?title=Kiwi)
+* [源码更新 创建索引](http://localhost:7070/job/kiwi.search/)
+* [在opensuse自动编译安装](http://localhost:7070/job/kiwi.install/)
+* [源码搜索](http://localhost:8089/source/xref/wiki/)
+* [源码阅读与注释](https://github.com/gnuhub/kiwi/tree/gnuhub_kiwi)
+* [问题跟踪](https://github.com/gnuhub/kiwi/issues)

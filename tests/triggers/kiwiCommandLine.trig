@@ -1,1 +1,4 @@
 KTCommandLine.t
+KTContainerBuilder.t
+KTImageBuilderBase.t
+KTTarArchiveBuilder.t

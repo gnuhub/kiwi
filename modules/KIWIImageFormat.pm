@@ -541,9 +541,9 @@ sub createVagrantBox {
 			$img = $this -> createQCOW2();
 			$fmt = 'qcow2';
 		} elsif ($provider eq 'virtualbox') {
-			$this->{format} = 'vmdk';
-			$img = $this -> createVMDK();
-			$fmt = 'vmdk';
+			$this->{format} = 'ovf';
+			$img = $this -> createOVF();
+			$fmt = 'ovf';
 		}
 		$this->{format} = 'vagrant';
 		if (! $img) {

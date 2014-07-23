@@ -192,3 +192,8 @@ Remember to have fun :)
 * [源码搜索](http://localhost:8089/source/xref/kiwi/)
 * [源码阅读与注释](https://github.com/gnuhub/kiwi/tree/gnuhub_kiwi)
 * [问题跟踪](https://github.com/gnuhub/kiwi/issues)
+
+perl文档与函数模块搜索
+=========================
+* http://search.cpan.org/
+* http://perldoc.perl.org/index.html

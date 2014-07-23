@@ -8,3 +8,5 @@ tests/.timestamps
 *.op.*.old
 # hidden temporary files
 .tmp.*
+.kiwirc
+.revision

@@ -1,13 +1,29 @@
 #!/bin/bash
 # Use this script to run kiwi from the git checkout
+# 从git版本库直接运行kiwi的脚本
 # ---
 callpath=$(dirname $0)
+# 调用 ./kiwi --version
+echo $0
+# ./kiwi
+echo $callpath
+# .
 
 pushd $callpath &>/dev/null
+
+# 关于 &> http://www.tldp.org/LDP/abs/html/io-redirection.html
+# &>filename
+# Redirect both stdout and stderr to file "filename."
+# 2>&1
+# Redirects stderr to stdout
 
 if [ ! -s ".revision" ];then
 	./.version > .revision
 fi
+# -s -s FILE        True if file exists and is not empty.
+# ! -s ".revision" 如果文件不存在或者内容为空
+# ./.version > .revision 执行脚本 .version 生成内容输出到 .revision
+
 if [ ! -s ".kiwirc" ];then
 	cat > .kiwirc <<- EOF
 		use File::Spec;
@@ -20,9 +36,53 @@ if [ ! -s ".kiwirc" ];then
 		our \$System = File::Spec->rel2abs ("./system/boot/\$arch");
 	EOF
 fi
+# 如果 ./kiwirc 文件不存在或内容为空 就使用cat HEREDOCUMENT写入一份
+# cat > .kiwirc IO准想输出没问题
+# 实战linuxshell与服务器管理 136页 here document
+：<<-'COMMENT'
+- 可以去掉每行之前的TAB字符
+'' 对标记COMMENT加上单引号，即可关闭变量替换
+cat > .kiwirc <<- 'EOF'
+	use File::Spec;
+	# http://search.cpan.org/~smueller/PathTools-3.47/lib/File/Spec.pm
+	my $arch = qx(uname -m);
+	# perl -E "print qx(uname -m);"
+	# x86_64
+	# perl qx函数 http://www.yiibai.com/perl/perl_qx.html
+	# qx()是一个替代使用反引号来执行系统命令 跟ruby %x{} bash $() ``一样
+	# my 
+	# my,our,local,Perl范围变量声明 http://blog.csdn.net/utopia_wang/article/details/1954193
+	# 使用perldoc查看文档 http://book.51cto.com/art/201104/259058.htm
+	# http://perldoc.perl.org/index.html
+	chomp $arch;
+	# chomp()作用是将换行符“\n”去掉
+	if ($arch =~ /i.86/) {
+		$arch = 'ix86';
+	}
+	# =~ 正则
+	our $BasePath = File::Spec->rel2abs (".");
+	# our 全局变量
+	# perl -E 'use File::Spec;our $BasePath = File::Spec->rel2abs (".");print $BasePath;'
+	# /vagrant/workspace/gnuhub_kiwi
+	# http://search.cpan.org/~smueller/PathTools-3.47/lib/File/Spec.pm
+	# rel2abs() Converts a relative path to an absolute path.
+	our $System = File::Spec->rel2abs ("./system/boot/$arch");
+	# perl -E 'use File::Spec;my $arch = qx(uname -m);chomp $arch;our $System = File::Spec->rel2abs ("./system/boot/$arch");print $System;'
+	# /vagrant/workspace/gnuhub_kiwi/system/boot/x86_64
 
+	# kiwirc的本质就是生命全局可用的 $BasePath $System
+EOF
+所以以后不论注释还是输出统一用 << - 'HERE'
+COMMENT
 ./kiwi.pl $@
+# 实战linuxshell与服务器管理 124页 讲解了 $* $@ $#
+# $# 位置参数个数没问题
+# 容易混淆的是 $@ $*
+# $@ "a" "b" 分开
+# $* "a b" 一个字符串
 ecode=$?
+# 在这里获取退出代码
+# 瑞国不再这里获取，程序的退出状态讲师后面popd 的退出状态
 
 popd $callpath &>/dev/null
 

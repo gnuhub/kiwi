@@ -17,7 +17,12 @@
 #               : $LastChangedRevision: 1 $
 #----------------
 use lib './modules','/usr/share/kiwi/modules';
+# http://localhost:8080/wiki/index.php?title=%E6%96%87%E4%BB%B6:Perl%E5%AE%9E%E4%BE%8B%E7%B2%BE%E8%A7%A3(%E7%AC%AC%E5%9B%9B%E7%89%88).pdf
+# Perl 实例精解 643页 perl 编译指示
+# 编译指示 特殊的伪模块 负责编译器的行为
+# use lib 'library path' 编译时载入库 而不是运行时载入
 use strict;
+# 检查全局变量、无引号单词等内容;允许退出程序
 
 #============================================
 # perl debugger setup
@@ -28,45 +33,98 @@ use strict;
 # Modules
 #--------------------------------------------
 use warnings;
+# 提供警示信息,但不退出程序
 use Carp qw (cluck);
+# qw 引号规范 数组 55页 
+# qw(cluck) = {"cluck"}
+# 加载 Carp,导入 cluck （perl 实例精解 290 导入导出)
+# 与 die 函数类似,但能提供更多程序出错信息
 use Getopt::Long;
+# 如需使用位于其他子目录中 的模块,则应当在目录名后面跟上两个冒号,然后给出模块名称
+# http://perldoc.perl.org/Getopt/Long.html
 use File::Basename;
+# http://perldoc.perl.org/File/Basename.html
 use File::Spec;
+# http://perldoc.perl.org/File/Spec.html
+# portably perform operations on file names
 use File::Find;
+# http://perldoc.perl.org/File/Find.html
+# Traverse a directory tree
 use File::Glob ':glob';
+# http://perldoc.perl.org/File/Glob.html
 use JSON;
+# http://search.cpan.org/~makamaka/JSON-2.90/lib/JSON.pm
 
 #==========================================
 # KIWIModules
 #------------------------------------------
 use KIWIAnalyseSystem;
+# 
 use KIWIAnalyseReport;
+# 
 use KIWIAnalyseTemplate;
+# creating basic image template data
 use KIWIAnalyseSoftware;
+# getting information about managed software manages software is part of packaging system like rpm
 use KIWIBoot;
+# create a boot USB stick or boot cd from a previously created initrd image
 use KIWICache;
+# initialize and create filesystem image caches
+# 初始化和创建文件系统镜像缓存
 use KIWICommandLine;
+# store command line arguments provided to the kiwi driver
+# 存储给供给kiwi的命令行参数
 use KIWIFilesystemOptions;
+# Represent filesystem options settings and data
+# 表现文件系统选项和数据
 use KIWIGlobals;
+# store variables and functions which needs to be available globally
+# 存储用于全局可用的变量和函数
 use KIWIImage;
+# create a logical extend, an image file based on a Linux filesystem
+# 创建一个逻辑扩展分区，是一个基于linux文件系统的镜像文件
 use KIWIImageCreator;
+# control the image creation process
+# 控制镜像的创建过程
 use KIWIImageFormat;
+# creating image output formats based on the raw output file like vmdk, ovf, hyperV and more
+# 创建镜像文件输出格式
 use KIWILocator;
+# perform operations on the local filesystem
+# 执行本地文件系统操作
 use KIWILog;
+# 日志刺痛
 use KIWIQX;
+# qx `` 
+# logging all exec calls 
+# 记录所有的调用
 use KIWIRoot;
+# initialize and install the chroot system of the image
+# 初始化 安装镜像的chroot系统
 use KIWIResult;
+# bundle build results
+# 搜集构建结果
 use KIWIRuntimeChecker;
+# check setup and other conditions hat can only be verified when KIWI is running
+# 用于检查只有在kiwi运行时才能校验的设置和条件
 use KIWIXML;
+# reading the control XML file, used for preparing an image
+# 读取xml控制文件，用于准备镜像
 use KIWIXMLInfo;
+# upgrade and validate the XML file, describing the image to be created
+# 升级和验证用于描述镜像的xml文件
 use KIWIXMLRepositoryData;
+# represents the data contained in the KIWI configuration file marked with the <repository> element and it's child element <source>
+# 用于描述配置文件中的<repository>元素和他的子集元素<source>
 use KIWIXMLValidator;
+# 校验xml文件
 
 
 #============================================
 # UTF-8 for output to stdout
 #--------------------------------------------
 binmode(STDOUT, ":encoding(UTF-8)");
+# http://perldoc.perl.org/functions/binmode.html
 
 #============================================
 # Globals

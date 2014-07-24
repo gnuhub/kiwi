@@ -522,13 +522,13 @@ sub createVagrantBox {
 	my $img;
 	my $fmt;
 	my @boxes;
-	$kiwi->log("ARGV @ARGV\n");
-	$kiwi->log("this $this\n");
-	$kiwi->log("xml $xml\n");
-	$kiwi->log("dest $dest\n");
-	$kiwi->log("vgclist $vgclist\n");
-	$kiwi->log("desc $desc\n");
-	$kiwi->log("pref $pref\n");
+	$kiwi -> info ("ARGV @ARGV\n");
+	$kiwi -> info ("this $this\n");
+	$kiwi -> info ("xml $xml\n");
+	$kiwi -> info ("dest $dest\n");
+	$kiwi -> info ("vgclist $vgclist\n");
+	$kiwi -> info ("desc $desc\n");
+	$kiwi -> info ("pref $pref\n");
 	$kiwi->activateBackTrace();
 	if (! $vgclist) {
 		$kiwi -> error  (

@@ -1675,6 +1675,7 @@ sub readXMLFromImage {
 	my $profile= $cmdL -> getBuildProfiles();
 	my $syszSize = 0;
 	my $haveSplit= 0;
+	my $originXMLPath;
 	if ((! $system) || (! $cmdL)) {
 		return;
 	}
@@ -1728,7 +1729,7 @@ sub readXMLFromImage {
 	#------------------------------------------
 	if (open my $FD, '<', "$rootpath/image/main::Prepare") {
 		my $idesc = <$FD>; close $FD;
-		$this->{originXMLPath} = $idesc;
+		$originXMLPath = $idesc;
 	}
 	#==========================================
 	# read and validate XML description
@@ -1781,7 +1782,8 @@ sub readXMLFromImage {
 	my %result = (
 		"xml" => $xml,
 		"sysz_size" => $syszSize,
-		"split" => $haveSplit
+		"split" => $haveSplit,
+		"originXMLPath" => $originXMLPath
 	);
 	return %result;
 }
@@ -1812,7 +1814,7 @@ sub _new_instance {
 	# Globals (generic)
 	#------------------------------------------
 	my %data;
-	$data{Version}         = "5.06.131";
+	$data{Version}         = "5.06.134";
 	$data{Publisher}       = "SUSE LINUX GmbH";
 	$data{Preparer}        = "KIWI - http://opensuse.github.com/kiwi";
 	$data{ConfigName}      = "config.xml";

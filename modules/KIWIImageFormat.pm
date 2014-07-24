@@ -523,12 +523,19 @@ sub createVagrantBox {
 	my $fmt;
 	my @boxes;
 	$kiwi -> info ("ARGV @ARGV\n");
+	# ARGV
 	$kiwi -> info ("this $this\n");
+	# this KIWIImageFormat=HASH(0x5038300)
 	$kiwi -> info ("xml $xml\n");
+	# xml KIWIXML=HASH(0x4e5cac0)
 	$kiwi -> info ("dest $dest\n");
+	# dest /tmp/build/vmx
 	$kiwi -> info ("vgclist $vgclist\n");
+	# vgclist ARRAY(0x4ea4438)
 	$kiwi -> info ("desc $desc\n");
+	# desc KIWIXMLDescriptionData=HASH(0x4e5c4d8)
 	$kiwi -> info ("pref $pref\n");
+	# pref KIWIXMLPreferenceData=HASH(0x5043f58)
 	$kiwi->activateBackTrace();
 	if (! $vgclist) {
 		$kiwi -> error  (
@@ -691,6 +698,16 @@ sub createVagrantBox {
 		KIWIQX::qxx ("cd $dest && rm -f @components");
 	}
 	$kiwi->printBackTrace();
+	# [*** back trace follows ***]
+	# Trace Level 890 at /usr/share/kiwi/modules/KIWIQX.pm line 60
+	# KIWIQX::qxx('cd /tmp/build/vmx && rm -f box.ovf box-disk1.vmdk metadata.js...') called at /usr/share/kiwi/modules/KIWIImageFormat.pm line 69
+	# KIWIImageFormat::createVagrantBox('KIWIImageFormat=HASH(0x5038300)') called at /usr/share/kiwi/modules/KIWIImageFormat.pm line 181
+	# KIWIImageFormat::createFormat('KIWIImageFormat=HASH(0x5038300)') called at /usr/share/kiwi/modules/KIWIImageCreator.pm line 1371
+	# KIWIImageCreator::createImageFormat('KIWIImageCreator=HASH(0x5035d28)', 'KIWIXML=HASH(0x4e5cac0)') called at /usr/share/kiwi/modules/KIWIImage.pm line 1104
+	# KIWIImage::createImageVMX('KIWIImage=HASH(0x4e673a8)', 'ext3:vmxboot/suse-13.1') called at /usr/share/kiwi/modules/KIWIImageCreator.pm line 1031
+	# KIWIImageCreator::createImage('KIWIImageCreator=HASH(0x4e55688)') called at /usr/sbin/kiwi line 273
+	# main::main() called at /usr/sbin/kiwi line 2341
+	# [*** end ***]
 	return @boxes;
 }
 

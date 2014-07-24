@@ -522,6 +522,14 @@ sub createVagrantBox {
 	my $img;
 	my $fmt;
 	my @boxes;
+	$kiwi->log("ARGV @ARGV\n");
+	$kiwi->log("this $this\n");
+	$kiwi->log("xml $xml\n");
+	$kiwi->log("dest $dest\n");
+	$kiwi->log("vgclist $vgclist\n");
+	$kiwi->log("desc $desc\n");
+	$kiwi->log("pref $pref\n");
+	$kiwi->activateBackTrace();
 	if (! $vgclist) {
 		$kiwi -> error  (
 			"No vagrantconfig section(s) found"
@@ -682,6 +690,7 @@ sub createVagrantBox {
 		#------------------------------------------
 		KIWIQX::qxx ("cd $dest && rm -f @components");
 	}
+	$kiwi->printBackTrace();
 	return @boxes;
 }
 

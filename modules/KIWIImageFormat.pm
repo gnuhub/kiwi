@@ -139,6 +139,8 @@ sub new {
 #==========================================
 # createFormat
 #------------------------------------------
+# 来自 modules/KIWIImageCreator.pm line 1376 $imageformat -> createFormat()
+# 调用 182 行 return $this -> createVagrantBox();
 sub createFormat {
 	my $this   = shift;
 	my $kiwi   = $this->{kiwi};
@@ -511,6 +513,7 @@ sub createQCOW2 {
 #==========================================
 # createVagrantBox
 #------------------------------------------
+# 来自 182 行 return $this -> createVagrantBox();
 sub createVagrantBox {
 	my $this   = shift;
 	my $kiwi   = $this->{kiwi};

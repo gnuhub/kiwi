@@ -686,6 +686,8 @@ sub createBootImage {
 #==========================================
 # createImage
 #------------------------------------------
+# 来自 kiwi.pl 274行 $kic -> createImage()
+# 跳出关键点 此文件 1032 行 $image -> createImageVMX
 sub createImage {
 	# ...
 	# Create the image
@@ -1029,6 +1031,9 @@ sub createImage {
 			};
 			/^vmx/      && do {
 				$status = $image -> createImageVMX ( $para );
+				# KIWIImage::createImageVMX('KIWIImage=HASH(0x4e673a8)', 'ext3:vmxboot/suse-13.1') called at /usr/share/kiwi/modules/KIWIImageCreator.pm line 1031
+				# 根据参数创建镜像
+				# 跳转到 文件 modules/KIWIImage.pm line 1104
 				last SWITCH;
 			};
 			/^oem/      && do {
@@ -1369,6 +1374,7 @@ sub createImageFormat {
 		return;
 	}
 	if (! $imageformat -> createFormat()) {
+		# 跳转到文件 modules/KIWIImageFormat.pm line 181 
 		return;
 	}
 	$imageformat -> createMachineConfiguration();

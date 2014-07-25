@@ -1041,6 +1041,8 @@ sub createImagePXE {
 #==========================================
 # createImageVMX
 #------------------------------------------
+# 来自 modules/KIWIImageCreator.pm 1033 $status = $image -> createImageVMX ( $para );
+# 跳出关键点 在此文件 1106行 调用 $kic->createImageFormat($xml)
 sub createImageVMX {
 	# ...
 	# Create virtual machine disks. By default a raw disk image will
@@ -1102,6 +1104,7 @@ sub createImageVMX {
 		$cmdL -> setImageFormat ($name->{format});
 		my $kic = KIWIImageCreator -> new($cmdL);
 		if ((! $kic) || (! $kic->createImageFormat($xml))) {
+
 			undef $kic;
 			return;
 		}

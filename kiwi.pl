@@ -154,6 +154,7 @@ local $SIG{"INT"}  = \&quit;
 # main
 #------------------------------------------
 sub main {
+	# KIWIImageCreator::createImage('KIWIImageCreator=HASH(0x4e55688)') called at /usr/sbin/kiwi line 273
 	# ...
 	# This is the KIWI project to prepare and build operating
 	# system images from a given installation source. The system
@@ -271,6 +272,9 @@ sub main {
 			}
 		} else {
 			if (! $kic -> createImage()) {
+				# KIWIImageCreator::createImage('KIWIImageCreator=HASH(0x4e55688)') called at /usr/sbin/kiwi line 273
+				# kic = kiwi image cteator
+				# 跳转到 文件 modules/KIWIImageCreator.pm 689行 createImage
 				kiwiExit (1);
 			}
 		}
@@ -2339,5 +2343,6 @@ sub createInstSource {
 }
 
 main();
+# 程序入口 -> kiwi.pl 156行
 
 # vim: set noexpandtab:

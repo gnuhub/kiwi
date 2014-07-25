@@ -166,11 +166,16 @@ sub main {
 	# store caller information
 	#----------------------------------------
 	$kiwi -> loginfo ("kiwi @ARGV\n");
+	# 记录传递的参数
+	# kiwi --debug --build ./source/ --set-repo /vagrant/workspace/iso/openSUSE-13.1-DVD-x86_64 -d /tmp/build/
 	$kiwi -> loginfo ("kiwi revision: ".revision()."\n");
+	# 记录修订的版本号
+	# kiwi revision: 4711
 	#==========================================
 	# Initialize and check options
 	#------------------------------------------
 	init();
+	# 初始化 -> 753 行
 	#==========================================
 	# Setup logging location
 	#------------------------------------------
@@ -747,6 +752,7 @@ sub main {
 #==========================================
 # init
 #------------------------------------------
+# 来自 177 main
 sub init {
 	# ...
 	# initialize, check privilege and options. KIWI
@@ -758,14 +764,19 @@ sub init {
 	#------------------------------------------
 	my $Help;
 	my $ArchiveImage;          # archive image results into a tarball
+	# 将镜像结果打包
 	my $FSBlockSize;           # filesystem block size
+	# 文件系统 block 大小
 	my $FSInodeSize;           # filesystem inode size
+	# 文件系统 inode大小
 	my $FSJournalSize;         # filesystem journal size
+	# 文件系统 journal 大小
 	my $FSMaxMountCount;       # filesystem (ext) max mount count between checks
 	my $FSCheckInterval;       # filesystem (ext) max interval between fs checks
 	my $FSInodeRatio;          # filesystem bytes/inode ratio
 	my $SetImageType;          # set image type to use, default is primary type
 	my $Build;                 # run prepare and create in one step
+	# -b --build
 	my $Prepare;               # control XML file for building chroot extend
 	my $Create;                # image description for building image extend
 	my $InitCache;             # create image cache(s) from given description
@@ -841,6 +852,7 @@ sub init {
 	my $DiskAlignment;         # partition alignment, default is 4096
 	my $DiskBIOSSectorSize;    # sector size default is 512 bytes
 	my $Version;               # version information
+	# --version
 	#==========================================
 	# create logger and cmdline object
 	#------------------------------------------
@@ -851,6 +863,7 @@ sub init {
 	#==========================================
 	# get options and call non-root tasks
 	#------------------------------------------
+	# 从命令行获取选项
 	my $result = GetOptions(
 		"archive-image"         => \$ArchiveImage,
 		"add-package=s"         => \@AddPackage,
@@ -878,6 +891,7 @@ sub init {
 		"createhash=s"          => \$CreateHash,
 		"createpassword"        => \$CreatePassword,
 		"debug"                 => \$Debug,
+		# --debug 1087
 		"del-package=s"         => \@RemovePackage,
 		"destdir|d=s"           => \$Destination,
 		"fat-storage=i"         => \$FatStorage,
@@ -895,6 +909,7 @@ sub init {
 		"grub-chainload"        => \$GrubChainload,
 		"gzip-cmd=s"            => \$GzipCmd,
 		"help|h"                => \$Help,
+		# --help -h 1513
 		"ignore-repos"          => \$IgnoreRepos,
 		"info|i=s"              => \$ListXMLInfo,
 		"init-cache=s"          => \$InitCache,
@@ -937,6 +952,7 @@ sub init {
 		"disk-sector-size=i"    => \$DiskBIOSSectorSize,
 		"verbose|v=i"           => \$Verbosity,
 		"version"               => \$Version,
+		# --version 就定义 $Version 1152
 		"yes|y"                 => \$defaultAnswer,
 	);
 	#==========================================
@@ -1502,8 +1518,10 @@ sub init {
 	#==========================================
 	# non root task: Version
 	#------------------------------------------
+	# 955 
 	if (defined $Version) {
 		version(0);
+		# 2190
 	}
 	#==========================================
 	# Check for root privileges
@@ -2168,11 +2186,15 @@ sub revision {
 #==========================================
 # version
 #------------------------------------------
+# from 1524
 sub version {
 	# ...
 	# Version information
 	# ---
+	# version(0)
+	# 通过shift将参数 0 保存到 $exit
 	my $exit  = shift;
+	# 获取传递给函数的第一个参数
 	my $gdata = $global -> getKiwiConfig();
 	if (! defined $exit) {
 		$exit = 0;
@@ -2181,6 +2203,7 @@ sub version {
 	$kiwi -> info ("Version:\n");
 	$kiwi -> info ("--> vnr: $gdata->{Version}\n");
 	$kiwi -> info ("--> git: $rev\n");
+	# 输出是通过 $kiwi -> info
 	$kiwi -> cleanSweep();
 	exit ($exit);
 }

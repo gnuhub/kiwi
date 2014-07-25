@@ -672,6 +672,9 @@ sub createVagrantBox {
 			$ovf_basename =~ s/vmdk$/ovf/;
 			$mf_basename =~ s/vmdk$/mf/;
 			KIWIQX::qxx ("cd $dest && mv $img_basename box-disk1.vmdk");
+			# 调试 box.ovf中文件名不对应
+			$kiwi -> info ("img_basename $img_basename");
+			
 			KIWIQX::qxx ("cd $dest && mv $ovf_basename box.ovf");
 			KIWIQX::qxx ("cd $dest && rm $mf_basename");
 			push @components, 'box.ovf';

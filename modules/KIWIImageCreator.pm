@@ -1359,6 +1359,7 @@ sub createImageDisk {
 #==========================================
 # createImageFormat
 #------------------------------------------
+# 来自 modules/KIWIImage.pm 1106行 调用 $kic->createImageFormat($xml)
 sub createImageFormat {
 	my $this   = shift;
 	my $xml    = shift;

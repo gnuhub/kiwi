@@ -1091,6 +1091,7 @@ sub createImageVMX {
 	}
 	my $kic = KIWIImageCreator -> new($cmdL);
 	if ((! $kic) || (! $kic->createImageDisk())) {
+		# 跳转转到文件 modules/KIWIImageCreator.pm 1376行 
 		undef $kic;
 		return;
 	}
@@ -1104,7 +1105,7 @@ sub createImageVMX {
 		$cmdL -> setImageFormat ($name->{format});
 		my $kic = KIWIImageCreator -> new($cmdL);
 		if ((! $kic) || (! $kic->createImageFormat($xml))) {
-
+			# 跳转到 modules/KIWIImageCreator.pm 1362 行的 createImageFormat
 			undef $kic;
 			return;
 		}

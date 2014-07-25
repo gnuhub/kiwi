@@ -181,6 +181,7 @@ sub createFormat {
 	if ($format eq "vagrant") {
 		$kiwi -> info ("Starting raw => $format conversion\n");
 		return $this -> createVagrantBox();
+		# 跳转到此文件 588行 createVagrantBox
 	} elsif ($format eq "vmdk") {
 		$kiwi -> info ("Starting raw => $format conversion\n");
 		return $this -> createVMDK();

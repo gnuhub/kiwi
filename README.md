@@ -1,3 +1,7 @@
+持续集成
+===============
+* 社区 travis-ci []
+* 本地 jenkins [kiwi.install](http://localhost:7070/job/kiwi.install/)
 kiwi源码阅读与注释
 =====================
 
@@ -199,7 +203,7 @@ perl文档与函数模块搜索
 * http://perldoc.perl.org/index.html
 
 
-* 安装以来的模块
+* 安装依赖的模块
 ```
 cpanm -f -n $(cat .perlmodules | tr "\n" " ")
 ```

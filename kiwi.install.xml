@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>* 根据分支从源码构建安装kiwi</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.plugins.hipchat.HipChatNotifier_-HipChatJobProperty plugin="hipchat@0.1.6">
+      <room></room>
+      <startNotification>false</startNotification>
+      <notifySuccess>false</notifySuccess>
+      <notifyAborted>false</notifyAborted>
+      <notifyNotBuilt>false</notifyNotBuilt>
+      <notifyUnstable>false</notifyUnstable>
+      <notifyFailure>false</notifyFailure>
+      <notifyBackToNormal>false</notifyBackToNormal>
+    </jenkins.plugins.hipchat.HipChatNotifier_-HipChatJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>branch</name>
+          <description>需要安装的分支</description>
+          <defaultValue>gnuhub_kiwi</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.23"/>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>opensuse-root</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/usr/bin/env bash
+set -x
+uname -a
+who
+cd /vagrant/workspace/
+sudo zypper -n install perl-Test-Unit-Lite
+function checkout_build
+{
+    cd kiwi
+    git reset --hard
+    git fetch
+    git checkout ${branch}
+    git pull origin ${branch}
+# 安装perl 
+# http://stackoverflow.com/questions/1391151/how-do-i-install-xmllibxml-for-activeperl
+# XML::LibXML was not ready for Perl 5.16. Install 5.14
+    \wget -O - http://install.perlbrew.pl | bash
+    source ~/perl5/perlbrew/etc/bashrc
+    perlbrew install perl-5.14.0
+    perlbrew switch perl-5.14.0
+# 安装cpanm
+    wget  http://xrl.us/cpanm  --no-check-certificate -O /usr/local/bin/cpanm 
+    chmod +x /usr/local/bin/cpanm
+# 安装kiwi需要的模块
+    cpanm -f -n $(cat .perlmodules | tr &quot;\n&quot; &quot; &quot;)
+    make
+    #make install
+    make test
+}
+
+if [ ! -d kiwi ];then
+    git clone https://github.com/gnuhub/kiwi.git
+    checkout_build
+else
+    checkout_build
+fi</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>kiwi_opensuse13.1_vagrant</childProjects>
+      <threshold>
+        <name>FAILURE</name>
+        <ordinal>2</ordinal>
+        <color>RED</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+  </publishers>
+  <buildWrappers/>
+</project>

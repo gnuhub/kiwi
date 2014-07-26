@@ -197,3 +197,13 @@ perl文档与函数模块搜索
 =========================
 * http://search.cpan.org/
 * http://perldoc.perl.org/index.html
+
+
+* 安装以来的模块
+```
+cpanm -f -n $(cat .perlmodules | tr "\n" " ")
+```
+* 备份jenkins配置
+```
+ln ${HOME}/.jenkins/jobs/kiwi.install/config.xml ./kiwi.install.xml
+```

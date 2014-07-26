@@ -1,6 +1,6 @@
 持续集成
 ===============
-* 社区 travis-ci []
+* 社区 travis-ci [![Build Status](https://travis-ci.org/gnuhub/kiwi.svg?branch=gnuhub_kiwi)](https://travis-ci.org/gnuhub/kiwi)
 * 本地 jenkins [kiwi.install](http://localhost:7070/job/kiwi.install/)
 kiwi源码阅读与注释
 =====================

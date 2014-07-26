@@ -233,12 +233,18 @@ test:
 	# Run unit tests...
 	#--------------------------------------------
 	tests/unit/cleanup.sh
+	# 开始测试前清理
 	if test ! -d tests/.timestamps; then \
 		mkdir tests/.timestamps; \
 	fi
-	for i in $(shell find -name "*.t" | cut -d/ -f4);do \
+	# 如果目录 tests/.timestamps 创建之
+	for i in $(shell find . -name "*.t" | cut -d/ -f4);do \
 		touch tests/.timestamps/$$i's';\
 	done
+	# 找到当前目录下所有以 .t接吻的文件
+	# ./tests/unit/KTCommandLine.t
+	# 以 / 为分界符分割 取第四个field
+	# KTCommandLine.t
 	cd tests/unit && \
 		${NONETWORKTEST} ${KIWINOFSTEST} perl /usr/bin/prove \
 		${TESTVERBOSE} .

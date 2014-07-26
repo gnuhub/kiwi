@@ -9,7 +9,7 @@ echo "Cleaning up artifacts"
 for i in `find . -name "*.converted.xml"`;do \
 	rm $i ;\
 done
-
+# 删除 当前目录下所有以 .converted.xml 结尾的文件
 grep kiwiDevTests /proc/mounts >& /dev/null
 if [ $? -ne 0 ]; then
 	rm -rf /tmp/kiwiDevTests

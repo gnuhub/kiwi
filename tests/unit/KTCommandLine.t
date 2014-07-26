@@ -21,6 +21,7 @@ use Test::Unit::Lite;
 
 # Location of test cases according to program path
 use lib "$FindBin::Bin/lib";
+# http://search.cpan.org/~rjbs/perl-5.20.0/lib/FindBin.pm
 
 # Location of Kiwi modules relative to test
 use lib "$FindBin::Bin/../../modules";

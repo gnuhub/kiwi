@@ -209,5 +209,5 @@ cpanm -f -n $(cat .perlmodules | tr "\n" " ")
 ```
 * 备份jenkins配置
 ```
-ln ${HOME}/.jenkins/jobs/kiwi.install/config.xml ./kiwi.install.xml
+ln ${HOME}/.jenkins/jobs/kiwi.install/config.xml ${HOME}/gnuhub/git/gnuhub_kiwi/
 ```

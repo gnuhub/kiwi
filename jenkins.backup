@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+jenkins.cli get-job kiwi.install > kiwi.install.xml

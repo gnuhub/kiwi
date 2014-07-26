@@ -43,6 +43,10 @@ cd /vagrant/workspace/
 sudo zypper -n install perl-Test-Unit-Lite
 function checkout_build
 {
+# https://github.com/gnuhub/kiwi/issues/11
+# Can&apos;t locate XML/LibXML.pm in @INC
+    zypper -n in libxml2-2 libxml2-devel
+
     cd kiwi
     git reset --hard
     git fetch
@@ -64,6 +68,8 @@ function checkout_build
     #make install
     make test
 }
+
+
 
 if [ ! -d kiwi ];then
     git clone https://github.com/gnuhub/kiwi.git
